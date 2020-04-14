@@ -1,7 +1,7 @@
 . ./Parse-UntisGpnFile.ps1
 
 Describe 'Get-Klassen' {
-    It "moet alle 55 klassen returnen" {
+    It "moet alle 56 klassen returnen" {
         $alle_klassen = Get-Klassen
         $alle_klassen.Count | Should -Be 56
     }
