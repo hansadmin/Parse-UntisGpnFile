@@ -1,7 +1,10 @@
+Param(
+    [Parameter(Mandatory=$true)]
+    [System.IO.FileInfo]
+    $Path = "./demo-files/be_gy1_Hantal.GPN"
+)
 
-$gpn_file = "./demo-files/be_gy1_Hantal.GPN"
-
-$content = Get-Content $gpn_file
+$content = Get-Content $Path
 
 # klassen
 function Get-UntisKlassen {

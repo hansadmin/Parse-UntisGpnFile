@@ -1,4 +1,4 @@
-. ./Parse-UntisGpnFile.ps1
+. ./Parse-UntisGpnFile.ps1 -Path ./demo-files/be_gy1_Hantal.GPN
 
 Describe 'Get-UntisKlassen' {
     It "moet alle 56 klassen returnen" {

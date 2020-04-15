@@ -4,7 +4,7 @@ Powershell regex-based parser for Untis' GPN-files
 ## How to run
 Dot source `Parse-UntisGpnFile.ps1`
 
-    . ./Parse-UntisGpnFile.ps1
+    . ./Parse-UntisGpnFile.ps1 -Path ./demo-files/be_gy1_Hantal.GPN
 
 Execute `Get-UntisKlassen`
 
@@ -26,9 +26,10 @@ to be used for scripting Microsoft Teams (names, channels, membership).
 
 Done :warning:
 - `Get-UntisKlassen`
+- parameterize: `. ./Parse-UntisGpnFile -Path xyz.gpn`
 
 TODO :construction: (with estimated difficulty):
-- :star: parameterize: e.g. `-UntisFile xyz.gpn`
+
 - :star: `Get-UntisVakken`
 - :star: `Get-UntisLeerkrachten` / `Get-UntisDocenten`
 - :star: :star: Only do raw parsing or also logic (e.g. `Get-UntisLeerkrachten -Klas $klasnaam`)?
