@@ -28,3 +28,16 @@ function Get-UntisKlassen {
     }
     return $klassen
 }
+
+function Get-UntisDocenten {
+    $re = '^00L\s+,"?(?<afkorting>[^,"]*)"?,"?(?<volledig>[^,"]*)"?,+.*$'
+    $all = @()
+    $content | ForEach-Object { 
+        if($_ -match $re) { 
+            $Matches.Remove(0)
+            $o = New-Object -TypeName PSObject -Property $Matches
+            $all += $o
+        }
+    }
+    return $all
+}

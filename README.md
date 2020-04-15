@@ -6,9 +6,10 @@ Dot source `Parse-UntisGpnFile.ps1`
 
     . ./Parse-UntisGpnFile.ps1 -Path ./demo-files/be_gy1_Hantal.GPN
 
-Execute `Get-UntisKlassen`
+Execute the functions
 
     Get-UntisKlassen
+    Get-UntisDocenten
 
 ## How to test
 Have Pester installed (see below for Windows 10)
@@ -56,7 +57,7 @@ Done :warning:
 TODO :construction: (with estimated difficulty):
 
 - :star: `Get-UntisVakken`
-- :star: `Get-UntisLeerkrachten` / `Get-UntisDocenten`
+- :star: :star: good tests for `Get-UntisDocenten` and tests in general
 - :star: :star: Only do raw parsing or also logic (e.g. `Get-UntisLeerkrachten -Klas $klasnaam`)?
 - :star: :star: :star: `Get-UntisLesrooster`
 - ...

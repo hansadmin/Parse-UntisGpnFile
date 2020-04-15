@@ -23,3 +23,11 @@ Describe 'Get-UntisKlassen' {
         $klas2IMA.volledig | Should -Be "Immobiliën- en Verzekeringswezen"
     }
 }
+
+Describe 'Get-UntisDocenten' {
+    It "moet alle 95 docenten return" {
+        $alle_docenten = Get-UntisDocenten
+        $alle_docenten.Count | Should -Be 95
+    }
+
+}
