@@ -4,7 +4,7 @@ $gpn_file = "./demo-files/be_gy1_Hantal.GPN"
 $content = Get-Content $gpn_file
 
 # klassen
-function Get-Klassen {
+function Get-UntisKlassen {
     $re_klassen = '^00K\s+,"?(?<afkorting>[^,"]*)"?,"?(?<volledig>[^,"]*)"?,+.*$'
     $klassen = @()
     $content | ForEach-Object { 

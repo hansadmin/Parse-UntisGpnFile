@@ -6,9 +6,9 @@ Dot source `Parse-UntisGpnFile.ps1`
 
     . ./Parse-UntisGpnFile.ps1
 
-Execute `Get-Klassen`
+Execute `Get-UntisKlassen`
 
-    Get-Klassen
+    Get-UntisKlassen
 
 ## How to test
 Have Pester installed
@@ -25,10 +25,9 @@ First focus is to be able to export **classes**, **teachers** and **subjects**
 to be used for scripting Microsoft Teams (names, channels, membership).
 
 Done :warning:
-- `Get-Klassen`
+- `Get-UntisKlassen`
 
 TODO :construction: (with estimated difficulty):
-- :star: rename `Get-Klassen` to `Get-UntisKlassen` (eases possible future refactoring to installable module)
 - :star: parameterize: e.g. `-UntisFile xyz.gpn`
 - :star: `Get-UntisVakken`
 - :star: `Get-UntisLeerkrachten` / `Get-UntisDocenten`
