@@ -4,7 +4,16 @@ Param(
     $Path = "./demo-files/be_gy1_Hantal.GPN"
 )
 
-$content = Get-Content $Path
+# Powershell (>= 6.0) ondersteunt GetEncoding(1252)
+$iswinps = ($null, 'Desktop') -contains $PSVersionTable.PSEdition
+if (!$iswinps) {
+    $encoding = [System.Text.Encoding]::GetEncoding(1252)
+}
+else {
+    $encoding = [Microsoft.PowerShell.Commands.FileSystemCmdletProviderEncoding]::Default
+}
+
+$content = Get-Content $Path -Encoding $encoding
 
 # klassen
 function Get-UntisKlassen {
