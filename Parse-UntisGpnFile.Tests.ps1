@@ -17,4 +17,9 @@ Describe 'Get-Klassen' {
         $klas_zonder_volledige_naam.Count | Should -Be 1
         $klas_zonder_volledige_naam.afkorting | Should -Be 'STVMK'
     }
+
+    It "moet deeltekens correct parsen (2IMA)" {
+        $klas2IMA = Get-Klassen | Where afkorting -eq 2IMA
+        $klas2IMA.volledig | Should -Be "Immobiliën- en Verzekeringswezen"
+    }
 }
