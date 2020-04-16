@@ -80,6 +80,7 @@ DONE :warning:
 - `Get-UntisKlassen` returns all classes from all periods
 - `Get-UntisDocenten` returns all teachers from all periods
 - `Get-Periodes` returns all periods
+- Better tests with data from exports
 
 TODO :construction: (with estimated difficulty):
 
@@ -87,7 +88,6 @@ TODO :construction: (with estimated difficulty):
 - :star: `Get-Periodes` returns real (typed) DateTime-objects
 - :star: :star: :star: Make the tools period-aware
 - :star: `Get-UntisVakken`
-- :star: Better tests with data from exports
 - :star: :star: Only do raw parsing or also logic (e.g. `Get-UntisLeerkrachten -Klas $klasnaam`)?
 - :star: :star: :star: `Get-UntisLesrooster`
 - ...

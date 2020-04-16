@@ -1,0 +1,8 @@
+"OV_AH","Allerheiligenvakantie",20091102,20091106,
+"11_NOV","11 november",20091111,20091111,
+"KERST","Kerstvakantie",20091221,20100101,
+"KROKUS","Krokusvakantie",20100215,20100219,
+"PASEN","Paasvakantie",20100405,20100416,
+"OHH","Hemelvaart",20100513,20100514,
+"HF","Hunkse Feesten",20100524,20100524,
+"V","Vrijaf",20100525,20100525,
