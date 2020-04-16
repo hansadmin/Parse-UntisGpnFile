@@ -1,5 +1,5 @@
-# Parse-UntisGpnFile
-Powershell regex-based parser for Untis' GPN-files
+# UntisGpnFileTools
+Powershell regex-based parser-module for Untis' GPN-files
 
 ## How to run
 
