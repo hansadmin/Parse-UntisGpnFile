@@ -29,7 +29,7 @@ Now you can execute the different functions succesfully:
 
     Close-UntisGpnFile
 
-To remove the module from memory:
+To remove the module from memory (can be important during manual testing after code is changed):
 
     Remove-Module UntisGpnFileTools
 
@@ -79,11 +79,12 @@ DONE :warning:
 - Refactored to a module instead of a script
 - `Get-UntisKlassen` returns all classes from all periods
 - `Get-UntisDocenten` returns all teachers from all periods
+- `Get-Periodes` returns all periods
 
 TODO :construction: (with estimated difficulty):
 
 - :star: Make all tests work on Windows 10 / Windows Server 2016
-- :star: `Get-Periodes` returns all periods
+- :star: `Get-Periodes` returns real (typed) DateTime-objects
 - :star: :star: :star: Make the tools period-aware
 - :star: `Get-UntisVakken`
 - :star: Better tests with data from exports

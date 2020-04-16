@@ -45,11 +45,24 @@ function Open-UntisGpnFile {
 
 # Alle onderstaande functies maken GEEN gebruik van (globale/script) variabelen
 
+function Get-UntisPeriodes {
+    $re = '^0P\s+,"?(?<afkorting>[^,"]*)"?,(?<volledig>[^,"]*)"?,"?(?<van>[^,"]*)"?,"?(?<tem>[^,"]*)"?,"?(?<moederperiode>[^,"]*)"?,"?(?<vlaggen>[^,"]*),.+$'
+    $all = @()
+    
+    Get-UntisGpnFileContent | ForEach-Object { 
+        if($_ -match $re) { 
+            $Matches.Remove(0)
+            $o = New-Object -TypeName PSObject -Property $Matches
+            $all += $o
+        }
+    }
+    return $all
+}
+
 function Get-UntisKlassen {
-    $content = Get-UntisGpnFileContent
     $re_klassen = '^00K\s+,"?(?<afkorting>[^,"]*)"?,"?(?<volledig>[^,"]*)"?,+.*$'
     $klassen = @()
-    $content | ForEach-Object { 
+    Get-UntisGpnFileContent | ForEach-Object { 
         if($_ -match $re_klassen) { 
             $Matches.Remove(0)
             $o = New-Object -TypeName PSObject -Property $Matches
@@ -77,5 +90,6 @@ Export-ModuleMember -Function Get-UntisGpnFile
 Export-ModuleMember -Function Get-UntisGpnFileContent
 Export-ModuleMember -Function Close-UntisGpnFile
 Export-ModuleMember -Function Open-UntisGpnFile
+Export-ModuleMember -Function Get-UntisPeriodes
 Export-ModuleMember -Function Get-UntisKlassen
 Export-ModuleMember -Function Get-UntisDocenten

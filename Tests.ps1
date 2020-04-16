@@ -1,3 +1,4 @@
+Remove-Module UntisGpnFileTools -ErrorAction SilentlyContinue
 Import-Module ./UntisGpnFileTools.psm1
 
 Describe 'UntisGpnFileTools module-scope stuff' {
@@ -16,9 +17,55 @@ Describe 'UntisGpnFileTools module-scope stuff' {
         { Get-UntisGpnFileContent } | Should -Throw
         { Get-UntisKlassen } | Should -Throw
         { Get-UntisDocenten } | Should -Throw
+        { Get-UntisPeriodes } | Should -Throw
         Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
         (Get-UntisGpnFile).Name | Should -Be 'be_uv1_Nijverheidsschool.gpn'
         Get-UntisGpnFileContent | Should -HaveCount 41482
+    }
+}
+
+Describe 'Get-UntisPeriodes' {
+    Context "Demo GPN file [be_gy1_Hantal.GPN]" {
+        BeforeAll {
+            Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN 
+        }
+        AfterAll {
+            Close-UntisGpnFile
+        }
+        It "geeft de juiste aantallen periodes terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes | Should -HaveCount 2
+        }
+        It "geeft afkorting en volledige naam eerste periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].afkorting | Should -Be "1ste semester"
+            $periodes[0].volledig | Should -Be "1ste semester"
+        }
+        It "geeft moederperiode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[1].moederperiode | Should -Be "1ste semester"
+        }
+    }
+    Context "Demo GPN file [be_uv1_Nijverheidsschool.gpn]" {
+        BeforeAll {
+            Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
+        }
+        AfterAll {
+            Close-UntisGpnFile
+        }
+        It "geeft de juiste aantallen periodes terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes | Should -HaveCount 3
+        }
+        It "geeft afkorting en volledige naam eerste periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].afkorting | Should -Be "Lesjaar"
+            $periodes[0].volledig | Should -Be "Heel lesjaar"
+        }
+        It "geeft moederperiode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[2].moederperiode | Should -Be "Lesjaar"
+        }
     }
 }
 
