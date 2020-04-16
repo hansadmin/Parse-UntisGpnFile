@@ -49,7 +49,7 @@ Similar tests can be written for personal GPN-files.
 
 ## Pester on Windows 10
 On Windows 10, Pester 3.4.0 is installed by default.
-This script require Pester >4.0.
+This script requires Pester >4.0.
 
 You can install it only for the current user (side-by-side), just to be safe:
 
@@ -60,12 +60,12 @@ Check version numbers of different Pester-modules:
 
     Get-Module Pester -ListAvailable
 
-To remove `Pester`, start a new Powershell-session (and close all others)
+To uninstall `Pester`, start a new Powershell-session (and close all others)
 
     Uninstall-Module Pester
     Uninstall-Module Pester -RequiredVersion 4.10.2
 
-Sometimes removing modules throws 'in use'-errors. These things are good to know:
+Sometimes uninstalling modules throws 'in use'-errors. These things are good to know:
 - Powershell-modules are usually auto-imported depending on the
 `$PSModuleAutoLoadingPreference`, which can be set to `none` in your `$profile`
 - `powershell -NoProfile -Command "Uninstall-Module Pester"` starts a clean Powershell
@@ -79,7 +79,7 @@ DONE :warning:
 - Refactored to a module instead of a script
 - `Get-UntisKlassen` returns all classes from all periods
 - `Get-UntisDocenten` returns all teachers from all periods
-- `Get-Periodes` returns all periods
+- `Get-UntisPeriodes` returns all periods
 - Better tests with data from exports
 
 TODO :construction: (with estimated difficulty):
