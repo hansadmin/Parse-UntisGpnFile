@@ -2,14 +2,38 @@
 Powershell regex-based parser for Untis' GPN-files
 
 ## How to run
-Dot source `Parse-UntisGpnFile.ps1`
 
-    . ./Parse-UntisGpnFile.ps1 -Path ./demo-files/be_gy1_Hantal.GPN
+Import the module (choose one):
 
-Execute the functions
+    Import-Module ./UntisGpnFileTools
+    Import-Module ./UntisGpnFileTools.psm1
+
+The module is now loaded:
+
+    Get-Module
+
+All available commands can be shown:
+
+    Get-Command -Module UntisGpnFileTools
+
+To start using it, you have to supply the path to an Untis file:
+
+    Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN
+
+Now you can execute the different functions succesfully:
 
     Get-UntisKlassen
     Get-UntisDocenten
+
+**Optionally** you can close the current GPN-file, before opening a new one:
+
+    Close-UntisGpnFile
+
+To remove the module from memory:
+
+    Remove-Module UntisGpnFileTools
+
+The `UntisGpnFileTools.psm1`-file can also be copied into one of the paths in `$Env:PSModulePath` for easier importing.
 
 ## How to test
 Have Pester installed (see below for Windows 10)
@@ -18,8 +42,10 @@ Have Pester installed (see below for Windows 10)
 
 Run Tests
 
-    ./Parse-UntisGpnFile.Tests.ps1
+    ./Tests.ps1
 
+Note that the tests require the demo-GPN-files to be present.
+Similar tests can be written for personal GPN-files.
 
 ## Pester on Windows 10
 On Windows 10, Pester 3.4.0 is installed by default.
@@ -45,19 +71,22 @@ Sometimes removing modules throws 'in use'-errors. These things are good to know
 - `powershell -NoProfile -Command "Uninstall-Module Pester"` starts a clean Powershell
 without loading the `$profile` to try to uninstall the module.
 
-
 ## TODO
 First focus is to be able to export **classes**, **teachers** and **subjects**
 to be used for scripting Microsoft Teams (names, channels, membership).
 
-Done :warning:
-- `Get-UntisKlassen`
-- parameterize: `. ./Parse-UntisGpnFile -Path xyz.gpn`
+DONE :warning:
+- Refactored to a module instead of a script
+- `Get-UntisKlassen` returns all classes from all periods
+- `Get-UntisDocenten` returns all teachers from all periods
 
 TODO :construction: (with estimated difficulty):
 
+- :star: Make all tests work on Windows 10 / Windows Server 2016
+- :star: `Get-Periodes` returns all periods
+- :star: :star: :star: Make the tools period-aware
 - :star: `Get-UntisVakken`
-- :star: :star: good tests for `Get-UntisDocenten` and tests in general
+- :star: Better tests with data from exports
 - :star: :star: Only do raw parsing or also logic (e.g. `Get-UntisLeerkrachten -Klas $klasnaam`)?
 - :star: :star: :star: `Get-UntisLesrooster`
 - ...
