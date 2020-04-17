@@ -55,6 +55,11 @@ Describe 'Get-UntisPeriodes' {
             $periodes[0].van | Should -Be $expected_van
             $periodes[0].tem | Should -Be $expected_tem
         }
+        It "geeft de actieve periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].isActief | Should -Be $true
+            $periodes[1].isActief | Should -Be $false
+        }
     }
     Context "Demo GPN file [be_uv1_Nijverheidsschool.gpn]" {
         BeforeAll {
@@ -84,6 +89,12 @@ Describe 'Get-UntisPeriodes' {
             $periodes[0].tem | Should -BeOfType System.DateTime
             $periodes[0].van | Should -Be $expected_van
             $periodes[0].tem | Should -Be $expected_tem
+        }
+        It "geeft de actieve periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].isActief | Should -Be $false
+            $periodes[1].isActief | Should -Be $false
+            $periodes[2].isActief | Should -Be $true
         }
     }
 }

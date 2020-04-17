@@ -79,7 +79,7 @@ DONE :warning:
 - Refactored to a module instead of a script
 - `Get-UntisKlassen` returns all classes from all periods
 - `Get-UntisDocenten` returns all teachers from all periods
-- `Get-UntisPeriodes` returns all periods
+- `Get-UntisPeriodes` returns all periods (and shows which one was active when GPN-file was last saved)
 - Better tests with data from exports
 - `Get-UntisActiviteiten` returns all activities
 - `Get-Periodes` (and other functions) return real (typed) DateTime-objects

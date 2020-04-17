@@ -18,7 +18,7 @@ function Get-UntisGpnFileContent {
 function Close-UntisGpnFile {
     $script:UntisGpnFile = ''
     $script:UntisGpnFileContent = ''
-    Write-Output "[($script:UntisGpnFile).Name] unloaded..."
+    Write-Output "[$script:UntisGpnFile] unloaded..."
 }
 
 function Open-UntisGpnFile {
@@ -40,7 +40,7 @@ function Open-UntisGpnFile {
     }
 
     $script:UntisGpnFileContent = Get-Content $script:UntisGpnFile -Encoding $encoding
-    Write-Output "[($script:UntisGpnFile).Name] loaded..."
+    Write-Output "[$script:UntisGpnFile] loaded..."
 }
 
 # Alle onderstaande functies maken GEEN gebruik van (globale/script) variabelen
@@ -55,6 +55,11 @@ function Get-UntisPeriodes {
             $o = New-Object -TypeName PSObject -Property $Matches
             $o.van = ConvertFrom-UntisDate($o.van)
             $o.tem = ConvertFrom-UntisDate($o.tem)
+            if($Matches.vlaggen.Contains('A')) {
+                $o | Add-Member -MemberType NoteProperty -Name isActief -Value $true
+            } else {
+                $o | Add-Member -MemberType NoteProperty -Name isActief -Value $false
+            }
             $all += $o
         }
     }
