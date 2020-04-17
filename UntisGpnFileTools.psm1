@@ -86,6 +86,53 @@ function Get-UntisDocenten {
     return $all
 }
 
+function Get-UntisActiviteiten {
+    $re = '(?sm)^(^0W.*?$)\n?(^Wk.*?$)?\n?(^Wl.*?$)?\n?(^Wa.*?$)?'
+
+    $all = @()
+    
+    $result = (Get-Content -Raw (Get-UntisGpnFile)) | Select-String -pattern $re -AllMatches
+    foreach($m in $result.Matches) {
+        $o = New-Object -TypeName PSObject
+        $m.Groups | Select -Skip 1 | ForEach-Object {
+            if($_ -match '^0W') {
+                $cols = $_ -split ','
+                $o | Add-Member -MemberType NoteProperty -Name nummer -Value $cols[1]
+                $o | Add-Member -MemberType NoteProperty -Name startdatum -Value $cols[4]
+                $o | Add-Member -MemberType NoteProperty -Name einddatum -Value $cols[5]
+                $o | Add-Member -MemberType NoteProperty -Name reden -Value $cols[6].Trim('"')
+                $o | Add-Member -MemberType NoteProperty -Name tekst -Value $cols[7].Trim('"')
+                $o | Add-Member -MemberType NoteProperty -Name startuur -Value $cols[8]
+                $o | Add-Member -MemberType NoteProperty -Name einduur -Value $cols[9]
+                $o | Add-Member -MemberType NoteProperty -Name onderwerp -Value $cols[10].Trim('"')
+            } elseif($_ -match '^Wk ') {
+                $klassen = @()
+                $cols = $_ -split ','
+                $cols | Select -Skip 2 | % {
+                    $klassen += $_.Trim()
+                }
+                $o | Add-Member -MemberType NoteProperty -Name klassen -Value $klassen
+            } elseif($_ -match '^Wl ') {
+                $leerkrachten = @()
+                $cols = $_ -split ','
+                $cols | Select -Skip 2 | % {
+                    $leerkrachten += $_.Trim()
+                }
+                $o | Add-Member -MemberType NoteProperty -Name leerkrachten -Value $leerkrachten
+            } elseif($_ -match '^Wa ') {
+                $absent_ids = @()
+                $cols = $_ -split ','
+                $cols | Select -Skip 2 | % {
+                    $absent_ids += $_
+                }
+                $o | Add-Member -MemberType NoteProperty -Name absent_ids -Value $absent_ids
+            }
+        }
+        $all += $o
+    }
+    return $all
+}
+
 Export-ModuleMember -Function Get-UntisGpnFile
 Export-ModuleMember -Function Get-UntisGpnFileContent
 Export-ModuleMember -Function Close-UntisGpnFile
@@ -93,3 +140,4 @@ Export-ModuleMember -Function Open-UntisGpnFile
 Export-ModuleMember -Function Get-UntisPeriodes
 Export-ModuleMember -Function Get-UntisKlassen
 Export-ModuleMember -Function Get-UntisDocenten
+Export-ModuleMember -Function Get-UntisActiviteiten

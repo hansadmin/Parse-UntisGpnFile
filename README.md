@@ -81,6 +81,7 @@ DONE :warning:
 - `Get-UntisDocenten` returns all teachers from all periods
 - `Get-UntisPeriodes` returns all periods
 - Better tests with data from exports
+- `Get-UntisActiviteiten` returns all activities
 
 TODO :construction: (with estimated difficulty):
 

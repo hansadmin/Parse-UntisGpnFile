@@ -18,6 +18,7 @@ Describe 'UntisGpnFileTools module-scope stuff' {
         { Get-UntisKlassen } | Should -Throw
         { Get-UntisDocenten } | Should -Throw
         { Get-UntisPeriodes } | Should -Throw
+        { Get-UntisActiviteiten } | Should -Throw
         Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
         (Get-UntisGpnFile).Name | Should -Be 'be_uv1_Nijverheidsschool.gpn'
         Get-UntisGpnFileContent | Should -HaveCount 41482
@@ -132,6 +133,35 @@ Describe 'Get-UntisDocenten' {
             $alle_docenten | Foreach-Object {
                 $expected_teachers.afkorting | Should -Contain $_.afkorting
             }
+        }
+    }
+}
+
+Describe 'Get-UntisActiviteiten' {
+    Context "Demo GPN file [be_uv1_Nijverheidsschool.gpn]" {
+        BeforeAll {
+            Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
+        }
+        AfterAll {
+            Close-UntisGpnFile
+        }
+        It "geeft het juiste aantal activiteiten terug" {
+            $expected = Get-UntisActiviteiten
+            $expected | Should -HaveCount 104
+        }
+        It "geeft de juiste values voor alle properties van de eerste activiteit" {
+            $expected = Get-UntisActiviteiten | Select-Object -First 1
+            $expected.nummer | Should -Be 179
+            $expected.startdatum | Should -Be 20100507
+            $expected.einddatum | Should -Be 20100507
+            $expected.reden | Should -Be "SB"
+            $expected.tekst | Should -Be "Moskee Genk+Zutendaal"
+            $expected.startuur | Should -Be 1845
+            $expected.einduur | Should -Be 9
+            $expected.onderwerp | Should -Be ''
+            $expected.klassen | Should -Be @('B2BA','B2BB','B2BC')
+            $expected.leerkrachten | Should -Be @('VLOB','Van6','VGIE','Geen','va')
+            $expected.absent_ids | Should -Be @(2814,2813,2812,2815,2816,2817,2818,2819)
         }
     }
 }
