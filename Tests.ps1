@@ -46,6 +46,15 @@ Describe 'Get-UntisPeriodes' {
             $periodes = Get-UntisPeriodes
             $periodes[1].moederperiode | Should -Be "1ste semester"
         }
+        It "geef de juiste start- en einddata terug" {
+            [datetime]$expected_van = '2009-07-27'
+            [datetime]$expected_tem = '2010-07-02'
+            $periodes = Get-UntisPeriodes
+            $periodes[0].van | Should -BeOfType System.DateTime
+            $periodes[0].tem | Should -BeOfType System.DateTime
+            $periodes[0].van | Should -Be $expected_van
+            $periodes[0].tem | Should -Be $expected_tem
+        }
     }
     Context "Demo GPN file [be_uv1_Nijverheidsschool.gpn]" {
         BeforeAll {
@@ -66,6 +75,15 @@ Describe 'Get-UntisPeriodes' {
         It "geeft moederperiode terug" {
             $periodes = Get-UntisPeriodes
             $periodes[2].moederperiode | Should -Be "Lesjaar"
+        }
+        It "geef de juiste start- en einddata terug" {
+            [datetime]$expected_van = '2009-09-01'
+            [datetime]$expected_tem = '2010-06-30'
+            $periodes = Get-UntisPeriodes
+            $periodes[0].van | Should -BeOfType System.DateTime
+            $periodes[0].tem | Should -BeOfType System.DateTime
+            $periodes[0].van | Should -Be $expected_van
+            $periodes[0].tem | Should -Be $expected_tem
         }
     }
 }
@@ -152,8 +170,10 @@ Describe 'Get-UntisActiviteiten' {
         It "geeft de juiste values voor alle properties van de eerste activiteit" {
             $expected = Get-UntisActiviteiten | Select-Object -First 1
             $expected.nummer | Should -Be 179
-            $expected.startdatum | Should -Be 20100507
-            $expected.einddatum | Should -Be 20100507
+            $expected.startdatum | Should -BeOfType System.DateTime
+            $expected.einddatum | Should -BeOfType System.DateTime
+            $expected.startdatum | Should -Be ([datetime]'2010-05-07')
+            $expected.einddatum | Should -Be ([datetime]'2010-05-07')
             $expected.reden | Should -Be "SB"
             $expected.tekst | Should -Be "Moskee Genk+Zutendaal"
             $expected.startuur | Should -Be 1845

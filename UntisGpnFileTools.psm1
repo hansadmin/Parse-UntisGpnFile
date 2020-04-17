@@ -53,6 +53,8 @@ function Get-UntisPeriodes {
         if($_ -match $re) { 
             $Matches.Remove(0)
             $o = New-Object -TypeName PSObject -Property $Matches
+            $o.van = ConvertFrom-UntisDate($o.van)
+            $o.tem = ConvertFrom-UntisDate($o.tem)
             $all += $o
         }
     }
@@ -98,8 +100,8 @@ function Get-UntisActiviteiten {
             if($_ -match '^0W') {
                 $cols = $_ -split ','
                 $o | Add-Member -MemberType NoteProperty -Name nummer -Value $cols[1]
-                $o | Add-Member -MemberType NoteProperty -Name startdatum -Value $cols[4]
-                $o | Add-Member -MemberType NoteProperty -Name einddatum -Value $cols[5]
+                $o | Add-Member -MemberType NoteProperty -Name startdatum -Value (ConvertFrom-UntisDate($cols[4]))
+                $o | Add-Member -MemberType NoteProperty -Name einddatum -Value (ConvertFrom-UntisDate($cols[5]))
                 $o | Add-Member -MemberType NoteProperty -Name reden -Value $cols[6].Trim('"')
                 $o | Add-Member -MemberType NoteProperty -Name tekst -Value $cols[7].Trim('"')
                 $o | Add-Member -MemberType NoteProperty -Name startuur -Value $cols[8]
@@ -131,6 +133,13 @@ function Get-UntisActiviteiten {
         $all += $o
     }
     return $all
+}
+
+# helper functions
+
+function ConvertFrom-UntisDate {
+    param($d)
+    return [datetime]::parseexact($d, 'yyyyMMdd', $null)
 }
 
 Export-ModuleMember -Function Get-UntisGpnFile

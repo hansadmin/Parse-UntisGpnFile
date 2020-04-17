@@ -82,11 +82,11 @@ DONE :warning:
 - `Get-UntisPeriodes` returns all periods
 - Better tests with data from exports
 - `Get-UntisActiviteiten` returns all activities
+- `Get-Periodes` (and other functions) return real (typed) DateTime-objects
 
 TODO :construction: (with estimated difficulty):
 
 - :star: Make all tests work on Windows 10 / Windows Server 2016
-- :star: `Get-Periodes` returns real (typed) DateTime-objects
 - :star: :star: :star: Make the tools period-aware
 - :star: `Get-UntisVakken`
 - :star: :star: Only do raw parsing or also logic (e.g. `Get-UntisLeerkrachten -Klas $klasnaam`)?
