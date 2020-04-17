@@ -48,11 +48,14 @@ function Open-UntisGpnFile {
 function Get-UntisPeriodes {
     $re = '^0P\s+,"?(?<afkorting>[^,"]*)"?,(?<volledig>[^,"]*)"?,"?(?<van>[^,"]*)"?,"?(?<tem>[^,"]*)"?,"?(?<moederperiode>[^,"]*)"?,"?(?<vlaggen>[^,"]*),.+$'
     $all = @()
-    
+    $i = 0
+
     Get-UntisGpnFileContent | ForEach-Object { 
         if($_ -match $re) { 
+            $i += 1
             $Matches.Remove(0)
             $o = New-Object -TypeName PSObject -Property $Matches
+            $o | Add-Member -MemberType NoteProperty -Name nummer -Value $i
             $o.van = ConvertFrom-UntisDate($o.van)
             $o.tem = ConvertFrom-UntisDate($o.tem)
             if($Matches.vlaggen.Contains('A')) {

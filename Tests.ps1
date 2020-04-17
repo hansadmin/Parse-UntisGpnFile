@@ -60,6 +60,11 @@ Describe 'Get-UntisPeriodes' {
             $periodes[0].isActief | Should -Be $true
             $periodes[1].isActief | Should -Be $false
         }
+        It "geef de juiste nummer v.d. periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].nummer | Should -Be 1
+            $periodes[1].nummer | Should -Be 2
+        }
     }
     Context "Demo GPN file [be_uv1_Nijverheidsschool.gpn]" {
         BeforeAll {
@@ -95,6 +100,12 @@ Describe 'Get-UntisPeriodes' {
             $periodes[0].isActief | Should -Be $false
             $periodes[1].isActief | Should -Be $false
             $periodes[2].isActief | Should -Be $true
+        }
+        It "geef de juiste nummer v.d. periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].nummer | Should -Be 1
+            $periodes[1].nummer | Should -Be 2
+            $periodes[2].nummer | Should -Be 3
         }
     }
 }

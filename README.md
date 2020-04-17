@@ -86,6 +86,7 @@ DONE :warning:
 
 TODO :construction: (with estimated difficulty):
 
+- :star: `Set-UntisActievePeriode -Nummer 1` to change the active period (useful before using Untis' export-function)
 - :star: Make all tests work on Windows 10 / Windows Server 2016
 - :star: :star: :star: Make the tools period-aware
 - :star: `Get-UntisVakken`
