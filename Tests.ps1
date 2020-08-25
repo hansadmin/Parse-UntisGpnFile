@@ -1,4 +1,4 @@
-Remove-Module UntisGpnFileTools -ErrorAction SilentlyContinue
+﻿Remove-Module UntisGpnFileTools -ErrorAction SilentlyContinue
 Import-Module ./UntisGpnFileTools.psm1
 
 
