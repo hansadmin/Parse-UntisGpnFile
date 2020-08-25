@@ -433,7 +433,7 @@ Describe 'Get-UntisKlassen' {
         }
         It "moet 1 klas zonder volledige naam bevatten (STVMK)" {
             $klas_zonder_volledige_naam = Get-UntisKlassen | Where-Object volledig -eq ""
-            $klas_zonder_volledige_naam.Count | Should -Be 1
+            $klas_zonder_volledige_naam | Should -HaveCount 1
             $klas_zonder_volledige_naam.afkorting | Should -Be 'STVMK'
         }
         It "moet deeltekens correct parsen (2IMA)" {
