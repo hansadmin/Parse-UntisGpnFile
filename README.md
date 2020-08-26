@@ -47,6 +47,11 @@ Run Tests
 Note that the tests require the demo-GPN-files to be present.
 Similar tests can be written for personal GPN-files.
 
+Running *all* of the tests *all* the time can take (too) long to be practical while developing.
+Therefore, to run just specific tests, use e.g.
+
+    Invoke-Pester -Path .\Tests.ps1 -FullNameFilter Get-UntisKlassen
+
 ## Pester on Windows 10
 On Windows 10, Pester 3.4.0 is installed by default.
 This script requires Pester >4.0.
