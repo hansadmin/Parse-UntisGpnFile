@@ -104,7 +104,7 @@ function Get-UntisActiviteiten {
     $result = (Get-Content -Raw (Get-UntisGpnFile)) | Select-String -pattern $re -AllMatches
     foreach($m in $result.Matches) {
         $o = New-Object -TypeName PSObject
-        $m.Groups | Select -Skip 1 | ForEach-Object {
+        $m.Groups | Select-Object -Skip 1 | ForEach-Object {
             if($_ -match '^0W') {
                 $cols = $_ -split ','
                 $o | Add-Member -MemberType NoteProperty -Name nummer -Value $cols[1]
@@ -118,21 +118,21 @@ function Get-UntisActiviteiten {
             } elseif($_ -match '^Wk ') {
                 $klassen = @()
                 $cols = $_ -split ','
-                $cols | Select -Skip 2 | % {
+                $cols | Select-Object -Skip 2 | ForEach-Object {
                     $klassen += $_.Trim()
                 }
                 $o | Add-Member -MemberType NoteProperty -Name klassen -Value $klassen
             } elseif($_ -match '^Wl ') {
                 $leerkrachten = @()
                 $cols = $_ -split ','
-                $cols | Select -Skip 2 | % {
+                $cols | Select-Object -Skip 2 | ForEach-Object {
                     $leerkrachten += $_.Trim()
                 }
                 $o | Add-Member -MemberType NoteProperty -Name leerkrachten -Value $leerkrachten
             } elseif($_ -match '^Wa ') {
                 $absent_ids = @()
                 $cols = $_ -split ','
-                $cols | Select -Skip 2 | % {
+                $cols | Select-Object -Skip 2 | ForEach-Object {
                     $absent_ids += $_
                 }
                 $o | Add-Member -MemberType NoteProperty -Name absent_ids -Value $absent_ids
