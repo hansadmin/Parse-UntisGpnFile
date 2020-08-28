@@ -456,29 +456,29 @@ Describe 'Get-UntisDocenten' {
             $alle_docenten.Count | Should -Be 97
         }
     }
-    Context "Demo GPN files vergelijken met export-data periode 1" {
-        $export_data_folders = @(
-            @{Path = "./demo-files/testdata_be_gy1_Hantal"},
-            @{Path = "./demo-files/testdata_be_uv1_Nijverheidsschool"}
-        )
-        BeforeAll {
-            Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN
-        }
-        AfterAll {
-            Close-UntisGpnFile
-        }
-        It "moet elke docent returnen die ook in '<Path>' voor periode 1 aanwezig is" -TestCases $export_data_folders {
-            param($Path)
-            $expected_teachers = Get-UntisDataFromExport -Path $Path -Type Teachers
-            $alle_docenten = Get-UntisDocenten #-Periode 1 #TODO
-            $expected_teachers | Foreach-Object {
-                $alle_docenten.afkorting | Should -Contain $_.afkorting
-            }
-            $alle_docenten | Foreach-Object {
-                $expected_teachers.afkorting | Should -Contain $_.afkorting
-            }
-        }
-    }
+    # Context "Demo GPN files vergelijken met export-data periode 1" {
+    #     $export_data_folders = @(
+    #         @{Path = "./demo-files/testdata_be_gy1_Hantal"},
+    #         @{Path = "./demo-files/testdata_be_uv1_Nijverheidsschool"}
+    #     )
+    #     BeforeAll {
+    #         Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN
+    #     }
+    #     AfterAll {
+    #         Close-UntisGpnFile
+    #     }
+    #     It "moet elke docent returnen die ook in '<Path>' voor periode 1 aanwezig is" -TestCases $export_data_folders {
+    #         param($Path)
+    #         $expected_teachers = Get-UntisDataFromExport -Path $Path -Type Teachers
+    #         $alle_docenten = Get-UntisDocenten #-Periode 1 #TODO
+    #         $expected_teachers | Foreach-Object {
+    #             $alle_docenten.afkorting | Should -Contain $_.afkorting
+    #         }
+    #         $alle_docenten | Foreach-Object {
+    #             $expected_teachers.afkorting | Should -Contain $_.afkorting
+    #         }
+    #     }
+    # }
 }
 
 Describe 'Get-UntisActiviteiten' {
