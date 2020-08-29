@@ -87,7 +87,7 @@ DONE :warning:
 - `Get-UntisPeriodes` returns all periods (and shows which one was active when GPN-file was last saved)
 - Better tests with data from exports
 - `Get-UntisActiviteiten` returns all activities
-- `Get-Periodes` (and other functions) return real (typed) DateTime-objects
+- `Get-UntisPeriodes` (and other functions) return real (typed) DateTime-objects
 
 TODO :construction: (with estimated difficulty):
 
