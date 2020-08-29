@@ -46,3 +46,12 @@ Write-ExampleDescription "Get-UntisPeriode"
 Get-UntisPeriodes | Format-Table
 
 #Write-Separator
+
+# ---
+
+Write-ExampleDescription "Get-UntisLessen"
+Open-UntisGpnFile -Path './demo-files/be_gy1_Hantal.GPN'
+# $lessen = Get-UntisLessen -Debug
+$lessen = Get-UntisLessen
+
+Write-Output $lessen

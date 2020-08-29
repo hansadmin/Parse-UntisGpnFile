@@ -143,6 +143,95 @@ function Get-UntisActiviteiten {
     return $all
 }
 
+function Get-UntisLessen {
+    [CmdletBinding()] Param()
+
+    $re = '^0U\s,(?<lescode>\d+).*$'
+    $reVak = '^Uf\s,,(?<vak>.+)$'
+    $reKlas = '^Uk\s,,(?<klas>.+)$'
+    $reDocent = '^Ul\s,,(?<docent>.+)$'
+    $reVaklokaal = '^Ur\s,,(?<vaklokaal>.+)$'
+    $reLokaal = '^Us\s,,(?<lokaal>.+)$'
+
+    # normally only used for the last 0U-fragment, when we can stop looking
+    Set-Variable -Name sensibleLineCount -Value 50 -Option Constant
+
+    $state_insideFragment = $false
+    $state_sensibleLineCounter = 0
+    $all = @()
+
+    Get-UntisGpnFileContent | ForEach-Object {  
+        $line = $_
+
+        if(!$state_insideFragment -And $line -cmatch $re) {
+            # -- new les
+            $state_insideFragment = $true
+            $state_sensibleLineCounter = 0
+            $Matches.Remove(0)
+            $les = New-Object -TypeName PSObject -Property $Matches 
+            
+            Write-Debug "start $line - $state_inside"
+        }
+
+        if($state_insideFragment -And $line -cmatch $re) {
+            Write-Debug "finish $line"
+            # -- finish les
+            $state_insideFragment = $false
+            Write-Debug "Les parsed: $les"
+            $all += $les
+            Write-Debug "SO FAR"
+            $all | % {
+                Write-Debug $_
+            }
+
+            # -- new les
+            $state_insideFragment = $true
+            $state_sensibleLineCounter = 0
+            $Matches.Remove(0)
+            $les = New-Object -TypeName PSObject -Property $Matches 
+
+            Write-Debug "start2 $line - $state_inside"
+        }
+        
+        if($state_insideFragment) {
+            $state_sensibleLineCounter += 1
+            if($state_sensibleLineCounter -ge $sensibleLineCount) {
+                Write-Debug "finish sensible $line"
+            
+                $state_insideFragment = $false
+                $all += $les
+            } else {
+                Write-Debug "handle $line"
+                if($line -cmatch $reVak) {
+                    $Matches.Remove(0)
+                    $les | Add-Member -NotePropertyMembers $Matches
+                    Write-Debug $les.vak
+                }
+                elseif($line -cmatch $reKlas) {
+                    $Matches.Remove(0)
+                    $les | Add-Member -NotePropertyMembers $Matches
+                }
+                elseif($line -cmatch $reDocent) {
+                    $Matches.Remove(0)
+                    $les | Add-Member -NotePropertyMembers $Matches
+                }
+                elseif($line -cmatch $reVaklokaal) {
+                    $Matches.Remove(0)
+                    $les | Add-Member -NotePropertyMembers $Matches
+                }
+                elseif($line -cmatch $reLokaal) {
+                    $Matches.Remove(0)
+                    $les | Add-Member -NotePropertyMembers $Matches
+                }
+            }
+        }
+
+        
+    }
+
+    return $all
+}
+
 # helper functions
 
 function ConvertFrom-UntisDate {
@@ -158,3 +247,4 @@ Export-ModuleMember -Function Get-UntisPeriodes
 Export-ModuleMember -Function Get-UntisKlassen
 Export-ModuleMember -Function Get-UntisDocenten
 Export-ModuleMember -Function Get-UntisActiviteiten
+Export-ModuleMember -Function Get-UntisLessen

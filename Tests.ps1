@@ -323,6 +323,7 @@ Describe 'UntisGpnFileTools module-scope stuff' {
         { Get-UntisDocenten } | Should -Throw
         { Get-UntisPeriodes } | Should -Throw
         { Get-UntisActiviteiten } | Should -Throw
+        { Get-UntisLessen } | Should -Throw
         Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
         (Get-UntisGpnFile).Name | Should -Be 'be_uv1_Nijverheidsschool.gpn'
         Get-UntisGpnFileContent | Should -HaveCount 41482
@@ -512,3 +513,34 @@ Describe 'Get-UntisActiviteiten' {
     }
 }
 
+Describe 'Get-UntisLessen' {
+    Context "Demo GPN file [be_gy1_Hantal.GPN] met handmatige data" {
+        BeforeAll {
+            Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN 
+        }
+        AfterAll {
+            Close-UntisGpnFile
+        }
+        It "moet alle 831 lessen teruggeven van alle periodes" {
+            # TODO Hoeveel zijn er echt in ALLE periodes?
+            $alle_lessen = Get-UntisLessen
+            $alle_lessen | Should -HaveCount 831
+        }
+        It "Les met code 1 moet juiste properties hebben" {
+            $les1 = Get-UntisLessen | Where-Object lescode -eq 1
+            $les1.vak | Should -Be "ECON"
+            $les1.klas | Should -Be "1BMA"
+            $les1.docent | Should -Be "Cas"
+            $les1.lokaal | Should -Be "4.01"
+            $les1.vaklokaal | Should -Be "4.01"
+        }
+        It "Lescode 21 heeft 2 docenten en 2 vakken (met klas-samenzettingen) en moet dus uit 4 lessen bestaan" {
+            $les21 = Get-UntisLessen | Where-Object lescode -eq 21
+            $les21 | Should -HaveCount 4
+        }
+        It "Lescode 42 heeft 1 docent met 2 klassen samengezet en moet dus uit 2 lessen bestaan" {
+            $les42 = Get-UntisLessen | Where-Object lescode -eq 42
+            $les42 | Should -HaveCount 2
+        }
+    }
+}
