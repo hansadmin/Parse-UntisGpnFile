@@ -50,8 +50,8 @@ function Get-UntisPeriodes {
     $all = @()
     $i = 0
 
-    Get-UntisGpnFileContent | ForEach-Object { 
-        if($_ -match $re) { 
+    Get-UntisGpnFileContent | ForEach-Object {
+        if($_ -match $re) {
             $i += 1
             $Matches.Remove(0)
             $o = New-Object -TypeName PSObject -Property $Matches
@@ -72,8 +72,8 @@ function Get-UntisPeriodes {
 function Get-UntisKlassen {
     $re_klassen = '^00K\s+,"?(?<afkorting>[^,"]*)"?,"?(?<volledig>[^,"]*)"?,+.*$'
     $klassen = @()
-    Get-UntisGpnFileContent | ForEach-Object { 
-        if($_ -match $re_klassen) { 
+    Get-UntisGpnFileContent | ForEach-Object {
+        if($_ -match $re_klassen) {
             $Matches.Remove(0)
             $o = New-Object -TypeName PSObject -Property $Matches
             $klassen += $o
@@ -86,8 +86,8 @@ function Get-UntisDocenten {
     $content = Get-UntisGpnFileContent
     $re = '^00L\s+,"?(?<afkorting>[^,"]*)"?,"?(?<volledig>[^,"]*)"?,+.*$'
     $all = @()
-    $content | ForEach-Object { 
-        if($_ -match $re) { 
+    $content | ForEach-Object {
+        if($_ -match $re) {
             $Matches.Remove(0)
             $o = New-Object -TypeName PSObject -Property $Matches
             $all += $o
@@ -100,7 +100,7 @@ function Get-UntisActiviteiten {
     $re = '(?sm)^(^0W.*?$)\n?(^Wk.*?$)?\n?(^Wl.*?$)?\n?(^Wa.*?$)?'
 
     $all = @()
-    
+
     $result = (Get-Content -Raw (Get-UntisGpnFile)) | Select-String -pattern $re -AllMatches
     foreach($m in $result.Matches) {
         $o = New-Object -TypeName PSObject
