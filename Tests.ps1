@@ -323,7 +323,6 @@ Describe 'UntisGpnFileTools module-scope stuff' {
         { Get-UntisDocenten } | Should -Throw
         { Get-UntisPeriodes } | Should -Throw
         { Get-UntisActiviteiten } | Should -Throw
-        { Get-UntisLessen } | Should -Throw
         Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
         (Get-UntisGpnFile).Name | Should -Be 'be_uv1_Nijverheidsschool.gpn'
         Get-UntisGpnFileContent | Should -HaveCount 41482
@@ -457,29 +456,6 @@ Describe 'Get-UntisDocenten' {
             $alle_docenten.Count | Should -Be 97
         }
     }
-    # Context "Demo GPN files vergelijken met export-data periode 1" {
-    #     $export_data_folders = @(
-    #         @{Path = "./demo-files/testdata_be_gy1_Hantal"},
-    #         @{Path = "./demo-files/testdata_be_uv1_Nijverheidsschool"}
-    #     )
-    #     BeforeAll {
-    #         Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN
-    #     }
-    #     AfterAll {
-    #         Close-UntisGpnFile
-    #     }
-    #     It "moet elke docent returnen die ook in '<Path>' voor periode 1 aanwezig is" -TestCases $export_data_folders {
-    #         param($Path)
-    #         $expected_teachers = Get-UntisDataFromExport -Path $Path -Type Teachers
-    #         $alle_docenten = Get-UntisDocenten #-Periode 1 #TODO
-    #         $expected_teachers | Foreach-Object {
-    #             $alle_docenten.afkorting | Should -Contain $_.afkorting
-    #         }
-    #         $alle_docenten | Foreach-Object {
-    #             $expected_teachers.afkorting | Should -Contain $_.afkorting
-    #         }
-    #     }
-    # }
 }
 
 Describe 'Get-UntisActiviteiten' {
@@ -509,38 +485,6 @@ Describe 'Get-UntisActiviteiten' {
             $expected.klassen | Should -Be @('B2BA','B2BB','B2BC')
             $expected.leerkrachten | Should -Be @('VLOB','Van6','VGIE','Geen','va')
             $expected.absent_ids | Should -Be @(2814,2813,2812,2815,2816,2817,2818,2819)
-        }
-    }
-}
-
-Describe 'Get-UntisLessen' {
-    Context "Demo GPN file [be_gy1_Hantal.GPN] met handmatige data" {
-        BeforeAll {
-            Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN 
-        }
-        AfterAll {
-            Close-UntisGpnFile
-        }
-        It "moet alle 831 lessen teruggeven van alle periodes" {
-            # TODO Hoeveel zijn er echt in ALLE periodes?
-            $alle_lessen = Get-UntisLessen
-            $alle_lessen | Should -HaveCount 831
-        }
-        It "Les met code 1 moet juiste properties hebben" {
-            $les1 = Get-UntisLessen | Where-Object lescode -eq 1
-            $les1.vak | Should -Be "ECON"
-            $les1.klas | Should -Be "1BMA"
-            $les1.docent | Should -Be "Cas"
-            $les1.lokaal | Should -Be "4.01"
-            $les1.vaklokaal | Should -Be "4.01"
-        }
-        It "Lescode 21 heeft 2 docenten en 2 vakken (met klas-samenzettingen) en moet dus uit 4 lessen bestaan" {
-            $les21 = Get-UntisLessen | Where-Object lescode -eq 21
-            $les21 | Should -HaveCount 4
-        }
-        It "Lescode 42 heeft 1 docent met 2 klassen samengezet en moet dus uit 2 lessen bestaan" {
-            $les42 = Get-UntisLessen | Where-Object lescode -eq 42
-            $les42 | Should -HaveCount 2
         }
     }
 }

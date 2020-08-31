@@ -22,18 +22,18 @@ function Write-Separator {
 
 # ---
 
-#Write-Separator
 Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN
 
-#Write-ExampleDescription "Get-UntisPeriode"
-#Get-UntisPeriodes | Select-Object afkorting, volledig, isActief
+Write-ExampleDescription "Get-UntisPeriode"
+Get-UntisPeriodes | Select-Object afkorting, volledig, isActief
 
 Write-ExampleDescription "Get-UntisPeriode"
 Get-UntisPeriodes | Format-Table
 
 # --- 
-
 Write-Separator
+# --- 
+
 Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
 
 #Write-ExampleDescription "Get-UntisActiviteiten met data"
@@ -44,14 +44,3 @@ Open-UntisGpnFile -Path ./demo-files/be_uv1_Nijverheidsschool.gpn
 
 Write-ExampleDescription "Get-UntisPeriode"
 Get-UntisPeriodes | Format-Table
-
-#Write-Separator
-
-# ---
-
-Write-ExampleDescription "Get-UntisLessen"
-Open-UntisGpnFile -Path './demo-files/be_gy1_Hantal.GPN'
-# $lessen = Get-UntisLessen -Debug
-$lessen = Get-UntisLessen
-
-Write-Output $lessen

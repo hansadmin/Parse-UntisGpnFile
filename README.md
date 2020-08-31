@@ -1,5 +1,18 @@
 # UntisGpnFileTools
+
 Powershell regex-based parser-module for Untis' GPN-files
+
+## Notes
+
+I am **not** affiliated with https://www.untis.at/ or https://www.untis.be/.
+This is just a tool that comes in handy for my school-administration tasks.
+
+## Release history
+
+### v0.1
+
+`Get-Periodes` is currently the only fully working command.
+Check the `master`-branch on GitHub for more work in progress.
 
 ## How to run
 
@@ -36,6 +49,7 @@ To remove the module from memory (can be important during manual testing after c
 The `UntisGpnFileTools.psm1`-file can also be copied into one of the paths in `$Env:PSModulePath` for easier importing.
 
 ## How to test
+
 Have Pester installed (see below for Windows 10)
 
     Install-Module Pester
@@ -53,6 +67,7 @@ Therefore, to run just specific tests, use e.g.
     Invoke-Pester -Path .\Tests.ps1 -FullNameFilter Get-UntisKlassen
 
 ## Pester on Windows 10
+
 On Windows 10, Pester 3.4.0 is installed by default.
 This script requires Pester >4.0.
 
@@ -77,8 +92,6 @@ Sometimes uninstalling modules throws 'in use'-errors. These things are good to 
 without loading the `$profile` to try to uninstall the module.
 
 ## TODO
-First focus is to be able to export **classes**, **teachers** and **subjects**
-to be used for scripting Microsoft Teams (names, channels, membership).
 
 DONE :warning:
 - Refactored to a module instead of a script
