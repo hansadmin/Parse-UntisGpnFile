@@ -104,9 +104,6 @@ DONE :warning:
 
 TODO :construction: (with estimated difficulty):
 
-- :star: `Get-UntisLessen` doesn't return full object probably because first object is mostly empty (logical error)
-- :star: :star: `Get-UntisLessen` should parse lessons with multiple teachers or with class-combinations
-- :star: `Get-UntisLessen` is quite slow because of the many regex's, could be optimized with `startsWith` in stead of full regex
 - :star: `Set-UntisActievePeriode -Nummer 1` to change the active period (useful before using Untis' export-function)
 - :star: Make all tests work on Windows 10 / Windows Server 2016
 - :star: :star: :star: Make the tools period-aware
