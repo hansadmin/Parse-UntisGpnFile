@@ -26,7 +26,7 @@ CompanyName = ''
 Copyright = '(c) 2020 hansadmin. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Regex-based parser- for Untis GPN-files'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
