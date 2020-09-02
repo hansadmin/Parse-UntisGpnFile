@@ -46,7 +46,7 @@ function Open-UntisGpnFile {
 # Alle onderstaande functies maken GEEN gebruik van (globale/script) variabelen
 
 function Get-UntisPeriodes {
-    $re = '^0P\s+,"?(?<afkorting>[^,"]*)"?,(?<volledig>[^,"]*)"?,"?(?<van>[^,"]*)"?,"?(?<tem>[^,"]*)"?,"?(?<moederperiode>[^,"]*)"?,"?(?<vlaggen>[^,"]*),.+$'
+    $re = '^0P\s+,"?(?<afkorting>[^,"]*)"?,"?(?<volledig>[^,"]*)"?,"?(?<van>[^,"]*)"?,"?(?<tem>[^,"]*)"?,"?(?<moederperiode>[^,"]*)"?,"?(?<vlaggen>[^,"]*),.+$'
     $all = @()
     $i = 0
 

@@ -14,6 +14,10 @@ This is just a tool that comes in handy for my school-administration tasks.
 `Get-Periodes` is currently the only fully working command.
 Check the `master`-branch on GitHub for more work in progress.
 
+### v0.1.2
+
+`Get-Periodes` now works correctly when period-names are between quotes.
+
 ## How to run
 
 Import the module (choose one):

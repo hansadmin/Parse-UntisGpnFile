@@ -330,6 +330,46 @@ Describe 'UntisGpnFileTools module-scope stuff' {
 }
 
 Describe 'Get-UntisPeriodes' {
+    Context "Custom GPN file [custom.GPN]" {
+        BeforeAll {
+            Open-UntisGpnFile -Path ./demo-files/custom.GPN 
+        }
+        AfterAll {
+            Close-UntisGpnFile
+        }
+        It "geeft de juiste aantallen periodes terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes | Should -HaveCount 2
+        }
+        It "geeft afkorting en volledige naam eerste periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].afkorting | Should -Be "moeder"
+            $periodes[0].volledig | Should -Be "moeder"
+        }
+        It "geeft moederperiode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[1].moederperiode | Should -Be "moeder"
+        }
+        It "geef de juiste start- en einddata terug" {
+            [datetime]$expected_van = '2020-08-31'
+            [datetime]$expected_tem = '2021-07-02'
+            $periodes = Get-UntisPeriodes
+            $periodes[0].van | Should -BeOfType System.DateTime
+            $periodes[0].tem | Should -BeOfType System.DateTime
+            $periodes[0].van | Should -Be $expected_van
+            $periodes[0].tem | Should -Be $expected_tem
+        }
+        It "geeft de actieve periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].isActief | Should -Be $false
+            $periodes[1].isActief | Should -Be $true
+        }
+        It "geef de juiste nummer v.d. periode terug" {
+            $periodes = Get-UntisPeriodes
+            $periodes[0].nummer | Should -Be 1
+            $periodes[1].nummer | Should -Be 2
+        }
+    }
     Context "Demo GPN file [be_gy1_Hantal.GPN]" {
         BeforeAll {
             Open-UntisGpnFile -Path ./demo-files/be_gy1_Hantal.GPN 
